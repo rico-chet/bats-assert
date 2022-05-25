@@ -1,3 +1,28 @@
+# `assert_regex`
+#
+# This function is similar to `assert_equal` but uses pattern matching instead
+# of equality, by wrapping `[[ value =~ pattern ]]`.
+#
+# Fail if the value (first parameter) does not match the pattern (second
+# parameter).
+#
+# ```bash
+# @test 'assert_regex()' {
+#   assert_regex 'what' 'x$'
+# }
+# ```
+#
+# On failure, the value and the pattern are displayed.
+#
+# ```
+# -- values does not match regular expression --
+# value    : what
+# pattern  : x$
+# --
+# ```
+#
+# If the value is longer than one line then it is displayed in *multi-line*
+# format.
 assert_regex() {
 	local -r value="${1}"
 	local -r pattern="${2}"
