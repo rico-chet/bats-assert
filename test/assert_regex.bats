@@ -23,6 +23,20 @@ pattern  : ^[a-z]b[c-z]+
 ERR_MSG
 }
 
+@test "assert_regex() <value> <pattern>: succeeds if any substring of a multi-line <value> matches extended regular expression <pattern>" {
+  run assert_regex $'one\ntwo' '^one'
+  assert_test_pass
+
+  run assert_regex $'one\ntwo' 'one'
+  assert_test_pass
+
+  run assert_regex $'one\ntwo' 'two'
+  assert_test_pass
+
+  run assert_regex $'one\ntwo' 'two$'
+  assert_test_pass
+}
+
 # Error handling
 @test "assert_regex() <value> <pattern>: returns 1 and displays an error message if <pattern> is not a valid extended regular expression" {
   run assert_regex value '[.*'
