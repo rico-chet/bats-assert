@@ -37,6 +37,44 @@ ERR_MSG
   assert_test_pass
 }
 
+@test "assert_regex() <value> <pattern>: line breaks do not match '^' and '$'" {
+  run assert_regex $'one\ntwo' 'one$'
+  assert_test_fail <<'ERR_MSG'
+
+-- value does not match regular expression --
+value (2 lines):
+  one
+  two
+pattern (1 lines):
+  one$
+--
+ERR_MSG
+
+  run assert_regex $'one\ntwo' '^two'
+  assert_test_fail <<'ERR_MSG'
+
+-- value does not match regular expression --
+value (2 lines):
+  one
+  two
+pattern (1 lines):
+  ^two
+--
+ERR_MSG
+
+  run assert_regex $'one\ntwo\n' 'two$'
+  assert_test_fail <<'ERR_MSG'
+
+-- value does not match regular expression --
+value (2 lines):
+  one
+  two
+pattern (1 lines):
+  two$
+--
+ERR_MSG
+}
+
 @test "assert_regex() <value> <pattern>: outputs multi-line <value> nicely when it fails" {
   run assert_regex $'bcd\n123' '^[a-z]b[c-z]+'
   assert_test_fail <<'ERR_MSG'
