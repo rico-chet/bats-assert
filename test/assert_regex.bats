@@ -37,17 +37,6 @@ pattern (1 lines):
 ERR_MSG
 }
 
-@test "assert_regex() <value> <pattern>: newlines in the <value> match newlines in the <pattern>" {
-  run assert_regex $'one\ntwo' $'e\nt'
-  assert_test_pass
-
-  run assert_regex $'one\ntwo' $'\nt'
-  assert_test_pass
-
-  run assert_regex $'one\ntwo\n' $'o\n'
-  assert_test_pass
-}
-
 # Error handling
 @test "assert_regex() <value> <pattern>: returns 1 and displays an error message if <pattern> is not a valid extended regular expression" {
   run assert_regex value '[.*'
