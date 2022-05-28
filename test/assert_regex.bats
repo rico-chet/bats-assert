@@ -23,20 +23,6 @@ pattern  : ^[a-z]b[c-z]+
 ERR_MSG
 }
 
-@test "assert_regex() <value> <pattern>: succeeds if any substring of a multi-line <value> matches extended regular expression <pattern>" {
-  run assert_regex $'one\ntwo' '^one'
-  assert_test_pass
-
-  run assert_regex $'one\ntwo' 'one'
-  assert_test_pass
-
-  run assert_regex $'one\ntwo' 'two'
-  assert_test_pass
-
-  run assert_regex $'one\ntwo' 'two$'
-  assert_test_pass
-}
-
 @test "assert_regex() <value> <pattern>: line breaks do not match '^' and '$'" {
   run assert_regex $'one\ntwo' 'one$'
   assert_test_fail <<'ERR_MSG'
