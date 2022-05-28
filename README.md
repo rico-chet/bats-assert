@@ -721,6 +721,13 @@ format.
 
 An error is displayed if the specified extended regular expression is invalid.
 
+For description of the matching behavior, refer to the documentation of the
+`=~` operator in the
+[Bash manual]: https://www.gnu.org/software/bash/manual/html_node/Conditional-Constructs.html.
+Note that the `BASH_REMATCH` array is available immediately after the
+assertion succeeds but is fragile, i.e. prone to being overwritten as a side
+effect of other actions.
+
 <!-- REFERENCES -->
 
 [bats]: https://github.com/bats-core/bats-core
