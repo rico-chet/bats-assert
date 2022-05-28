@@ -719,34 +719,6 @@ pattern  : x$
 If the value is longer than one line then it is displayed in *multi-line*
 format.
 
-Multi-line value matches a single-line pattern when one of its lines matches,
-e.g. following asserts succeed:
-
-```bash
-assert_regex $'one\ntwo' '^one'
-assert_regex $'one\ntwo' 'one'
-assert_regex $'one\ntwo' 'two'
-assert_regex $'one\ntwo' 'two$'
-```
-
-A newline in a value does *not* match `^` or `$` in the pattern, e.g. following
-asserts fail:
-
-```bash
-assert_regex $'one\ntwo' 'one$'
-assert_regex $'one\ntwo' '^two'
-assert_regex $'one\ntwo\n' 'two$'
-```
-
-Multi-line value's line breaks match patterns' line breaks, e.g. following
-asserts succeed:
-
-```bash
-assert_regex $'one\ntwo' $'e\nt'
-assert_regex $'one\ntwo' $'\nt'
-assert_regex $'one\ntwo\n' $'o\n'
-```
-
 An error is displayed if the specified extended regular expression is invalid.
 
 <!-- REFERENCES -->
