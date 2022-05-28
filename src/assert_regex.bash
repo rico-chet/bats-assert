@@ -24,36 +24,14 @@
 # If the value is longer than one line then it is displayed in *multi-line*
 # format.
 #
-# Multi-line value matches a single-line pattern when one of its lines matches,
-# e.g. following asserts succeed:
+# An error is displayed if the specified extended regular expression is invalid.
 #
-# ```bash
-# assert_regex $'one\ntwo' '^one'
-# assert_regex $'one\ntwo' 'one'
-# assert_regex $'one\ntwo' 'two'
-# assert_regex $'one\ntwo' 'two$'
-# ```
-#
-# A newline in a value does *not* match `^` or `$` in the pattern, e.g.
-# following asserts fail:
-#
-# ```bash
-# assert_regex $'one\ntwo' 'one$'
-# assert_regex $'one\ntwo' '^two'
-# assert_regex $'one\ntwo\n' 'two$'
-# ```
-#
-# Multi-line value's line breaks match patterns' line breaks, e.g. following
-# asserts succeed:
-#
-# ```bash
-# assert_regex $'one\ntwo' $'e\nt'
-# assert_regex $'one\ntwo' $'\nt'
-# assert_regex $'one\ntwo\n' $'o\n'
-# ```
-#
-# An error is displayed if the specified extended regular expression is
-# invalid.
+# For description of the matching behavior, refer to the documentation of the
+# `=~` operator in the
+# [Bash manual]: https://www.gnu.org/software/bash/manual/html_node/Conditional-Constructs.html.
+# Note that the `BASH_REMATCH` array is available immediately after the
+# assertion succeeds but is fragile, i.e. prone to being overwritten as a side
+# effect of other actions.
 assert_regex() {
 	local -r value="${1}"
 	local -r pattern="${2}"
